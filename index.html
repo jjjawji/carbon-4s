@@ -103,8 +103,9 @@
 // AUTORUN
 window.addEventListener('load', function(){
   try {
-    if (sessionStorage.getItem('carbonRan')) { console.log('carbon already ran this session'); return; }
-    sessionStorage.setItem('carbonRan','1');
+    var ckey = 'carbonRan_' + (location.search || '');
+    if (sessionStorage.getItem(ckey)) { console.log('carbon already ran for this URL'); return; }
+    sessionStorage.setItem(ckey, '1');
   } catch(e) {}
   setTimeout(function(){ try { run(); } catch(e) { console.log('autorun error '+e); } }, 1200);
 });
