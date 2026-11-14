@@ -4,7 +4,8 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    CGRect frame = CGRectMake(0, 0, 320, 480);
+    self.window = [[UIWindow alloc] initWithFrame:frame];
     RootViewController *root = [[RootViewController alloc] init];
     self.root = root;
     self.window.rootViewController = root;

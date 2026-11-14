@@ -27,7 +27,7 @@
         self.baseURL = [NSString stringWithFormat:@"%@://%@", scheme, host];
     }
 
-    self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.webView.delegate = self;
     self.webView.opaque = NO;
