@@ -1,5 +1,5 @@
 ARCHS = armv7
-TARGET = iphone:clang:9.3:9.0
+TARGET = iphone:clang:10.3:9.0
 INSTALL_TARGET_PROCESSES = SpringBoard
 
 include $(THEOS)/makefiles/common.mk
@@ -13,5 +13,6 @@ Jarvis_USE_MODULES = 0
 Jarvis_CODESIGN_FLAGS = -S
 
 include $(THEOS_MAKE_PATH)/application.mk
+
 
 

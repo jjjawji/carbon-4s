@@ -1,4 +1,4 @@
-name: Build Jarvis app
+﻿name: Build Jarvis app
 
 on:
   push:
@@ -23,8 +23,8 @@ jobs:
           mkdir -p "$HOME/theos/sdks"
           git clone --depth 1 --filter=blob:none --sparse https://github.com/theos/sdks.git /tmp/sdks
           cd /tmp/sdks
-          git sparse-checkout set iPhoneOS9.3.sdk
-          ln -sfn /tmp/sdks/iPhoneOS9.3.sdk "$HOME/theos/sdks/iPhoneOS9.3.sdk"
+          git sparse-checkout set iPhoneOS10.3.sdk
+          ln -sfn /tmp/sdks/iPhoneOS10.3.sdk "$HOME/theos/sdks/iPhoneOS10.3.sdk"
           echo "THEOS=$HOME/theos" >> $GITHUB_ENV
           echo "$HOME/theos/bin" >> $GITHUB_PATH
 
@@ -53,3 +53,4 @@ jobs:
           files: jarvisapp/packages/*.deb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
