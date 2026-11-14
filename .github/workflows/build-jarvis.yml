@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: macos-13
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
 
@@ -38,3 +38,5 @@ jobs:
           tag_name: jarvis-app-${{ github.run_number }}
           name: Jarvis app build ${{ github.run_number }}
           files: jarvisapp/packages/*.deb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
