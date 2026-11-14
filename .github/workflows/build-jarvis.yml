@@ -30,9 +30,22 @@ jobs:
 
       - name: Build package
         working-directory: jarvisapp
-        run: make package FINALPACKAGE=1
+        run: |
+          mkdir -p ../ci-logs
+          set -o pipefail
+          make package FINALPACKAGE=1 2>&1 | tee ../ci-logs/build.log
+
+      - name: Publish build log
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ci-logs || true
+          git commit -m "ci: build log ${{ github.run_number }} [skip ci]" || true
+          git push || true
 
       - name: Publish release
+        if: success()
         uses: softprops/action-gh-release@v2
         with:
           tag_name: jarvis-app-${{ github.run_number }}
