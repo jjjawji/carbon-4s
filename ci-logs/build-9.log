@@ -1,0 +1,54 @@
+[0;36m==> [1;36mNotice:[m Build may be slow as Theos isn’t using all available CPU cores on this computer. Consider upgrading GNU Make: https://theos.dev/docs/parallel-building
+[1;31m> [1;3;39mMaking all for application Jarvis…[m
+[0;35m==> [1;39mCopying resource directories into the application wrapper…[m
+[0;32m==> [1;39mCompiling main.m (armv7)…[m
+[0;32m==> [1;39mCompiling AppDelegate.m (armv7)…[m
+[0;32m==> [1;39mCompiling RootViewController.m (armv7)…[m
+[0;33m==> [1;39mLinking application Jarvis (armv7)…[m
+ld: warning: -undefined dynamic_lookup is deprecated on iOS
+ld: warning: -undefined dynamic_lookup is deprecated on iOS
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/libobjc.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/System/Library/Frameworks//CoreFoundation.framework/CoreFoundation.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/System/Library/Frameworks//Foundation.framework/Foundation.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/libSystem.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/System/Library/Frameworks//CoreGraphics.framework/CoreGraphics.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/System/Library/Frameworks//UIKit.framework/UIKit.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/System/Library/PrivateFrameworks/UIFoundation.framework/UIFoundation.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libcache.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libcommonCrypto.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libcompiler_rt.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libcopyfile.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libcorecrypto.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libdispatch.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libdyld.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/liblaunch.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libmacho.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libremovefile.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_asl.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_blocks.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_c.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_configuration.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_containermanager.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_coreservices.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_coretls.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_dnssd.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_info.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_kernel.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_m.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_malloc.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_network.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_networkextension.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_notify.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_platform.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_pthread.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_sandbox.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_symptoms.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libsystem_trace.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libunwind.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libvminterpose.tbd) built for iOS Simulator
+ld: warning: building for iOS, but linking in .tbd file (/Users/runner/theos/sdks/iPhoneOS10.3.sdk/usr/lib/system/libxpc.tbd) built for iOS Simulator
+[0;34m==> [1;39mGenerating debug symbols for Jarvis…[m
+[0;34m==> [1;39mStripping Jarvis (armv7)…[m
+[0;34m==> [1;39mSigning Jarvis…[m
+[1;31m> [1;3;39mMaking stage for application Jarvis…[m
+dm.pl: building package `com.jawji.jarvis:iphoneos-arm' in `./packages/com.jawji.jarvis_1.0_iphoneos-arm.deb'
