@@ -11,6 +11,7 @@
 @property (nonatomic, strong) UIButton *micButton;
 @property (nonatomic, strong) UILabel *hintLabel;
 @property (nonatomic, strong) AVSpeechSynthesizer *speaker;
+@property (nonatomic, assign) BOOL pageLoaded;
 @end
 
 @implementation RootViewController
@@ -61,6 +62,15 @@
     [self.micButton addTarget:self action:@selector(toggleRecording) forControlEvents:UIControlEventTouchUpInside];
     [bar addSubview:self.micButton];
 
+    UIButton *reload = [UIButton buttonWithType:UIButtonTypeCustom];
+    reload.frame = CGRectMake(20, 6, 44, 44);
+    reload.layer.cornerRadius = 22;
+    reload.backgroundColor = [UIColor colorWithWhite:0.13 alpha:1.0];
+    [reload setTitle:@"\u21BB" forState:UIControlStateNormal];
+    reload.titleLabel.font = [UIFont systemFontOfSize:22];
+    [reload addTarget:self action:@selector(loadJarvis) forControlEvents:UIControlEventTouchUpInside];
+    [bar addSubview:reload];
+
     self.hintLabel = [[UILabel alloc] initWithFrame:CGRectMake(188, 6, 126, 44)];
     self.hintLabel.text = @"tap to talk";
     self.hintLabel.font = [UIFont systemFontOfSize:11];
@@ -86,6 +96,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     self.loading = NO;
+    self.pageLoaded = YES;
     [self fetchReminders];
 }
 
@@ -211,8 +222,12 @@
     [self fetchRemindersWithCompletion:nil];
 }
 
+- (void)sendBriefing {
+    [self.webView stringByEvaluatingJavaScriptFromString:@"window.jarvisSend && window.jarvisSend('Give me a briefing');"];
+}
+
 - (void)fetchRemindersWithCompletion:(void (^)(BOOL))completion {
-    if (self.baseURL.length == 0 || self.token.length == 0) {
+    if (!self.pageLoaded || self.baseURL.length == 0 || self.token.length == 0) {
         if (completion) { completion(NO); }
         return;
     }
@@ -234,6 +249,11 @@
                     NSTimeInterval due = [item[@"due"] doubleValue];
                     NSString *text = item[@"text"];
                     if (due < now + 5 || text.length == 0) { continue; }
+                    if (due <= now + 60) {
+                        NSString *msg = [NSString stringWithFormat:@"Reminder: %@", text];
+                        [self injectMessage:@"jarvis" text:msg];
+                        [self speak:msg];
+                    }
                     UILocalNotification *note = [[UILocalNotification alloc] init];
                     note.fireDate = [NSDate dateWithTimeIntervalSince1970:due];
                     note.alertBody = text;
