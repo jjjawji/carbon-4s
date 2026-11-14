@@ -23,6 +23,11 @@
 }
 
 - (void)scheduleDailyBriefing {
+    // Every launch used to add another repeating 8 AM alert. Remove the old briefing alerts first.
+    UIApplication *app = [UIApplication sharedApplication];
+    for (UILocalNotification *old in [app.scheduledLocalNotifications copy]) {
+        if ([old.userInfo[@"briefing"] boolValue]) { [app cancelLocalNotification:old]; }
+    }
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDate *now = [NSDate date];
     NSDateComponents *comp = [cal components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:now];

@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = [UIColor colorWithRed:0.063 green:0.086 blue:0.353 alpha:1.0];
 
     NSString *urlString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"JarvisURL"];
     NSURLComponents *comp = [NSURLComponents componentsWithString:urlString ?: @""];
@@ -38,43 +38,46 @@
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.webView.delegate = self;
     self.webView.opaque = NO;
-    self.webView.backgroundColor = [UIColor blackColor];
+    self.webView.backgroundColor = [UIColor colorWithRed:0.063 green:0.086 blue:0.353 alpha:1.0];
     self.webView.scrollView.bounces = NO;
     self.webView.scrollView.showsVerticalScrollIndicator = NO;
     self.webView.dataDetectorTypes = 0;
     [self.view addSubview:self.webView];
 
     UIView *bar = [[UIView alloc] initWithFrame:CGRectMake(0, 424, 320, 56)];
-    bar.backgroundColor = [UIColor colorWithRed:0.035 green:0.055 blue:0.08 alpha:1.0];
+    bar.backgroundColor = [UIColor colorWithRed:0.043 green:0.063 blue:0.271 alpha:1.0];
     bar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:bar];
 
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0.5)];
-    line.backgroundColor = [UIColor colorWithRed:0.11 green:0.16 blue:0.24 alpha:1.0];
+    line.backgroundColor = [UIColor colorWithRed:0.184 green:0.231 blue:0.647 alpha:1.0];
     [bar addSubview:line];
 
     self.micButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.micButton.frame = CGRectMake(138, 6, 44, 44);
-    self.micButton.layer.cornerRadius = 22;
-    self.micButton.backgroundColor = [UIColor colorWithRed:0.22 green:0.82 blue:1.0 alpha:1.0];
-    [self.micButton setTitle:@"\U0001F3A4" forState:UIControlStateNormal];
-    self.micButton.titleLabel.font = [UIFont systemFontOfSize:21];
+    self.micButton.frame = CGRectMake(16, 8, 120, 40);
+    self.micButton.layer.cornerRadius = 20;
+    self.micButton.backgroundColor = [UIColor colorWithRed:1.0 green:0.353 blue:0.212 alpha:1.0];
+    [self.micButton setTitle:@"Talk" forState:UIControlStateNormal];
+    [self.micButton setTitleColor:[UIColor colorWithRed:0.063 green:0.086 blue:0.353 alpha:1.0] forState:UIControlStateNormal];
+    self.micButton.titleLabel.font = [UIFont boldSystemFontOfSize:16];
     [self.micButton addTarget:self action:@selector(toggleRecording) forControlEvents:UIControlEventTouchUpInside];
     [bar addSubview:self.micButton];
 
     UIButton *reload = [UIButton buttonWithType:UIButtonTypeCustom];
-    reload.frame = CGRectMake(20, 6, 44, 44);
+    reload.frame = CGRectMake(268, 6, 44, 44);
     reload.layer.cornerRadius = 22;
-    reload.backgroundColor = [UIColor colorWithWhite:0.13 alpha:1.0];
+    reload.backgroundColor = [UIColor clearColor];
+    [reload setTitleColor:[UIColor colorWithRed:0.725 green:0.745 blue:0.949 alpha:1.0] forState:UIControlStateNormal];
     [reload setTitle:@"\u21BB" forState:UIControlStateNormal];
     reload.titleLabel.font = [UIFont systemFontOfSize:22];
     [reload addTarget:self action:@selector(loadJarvis) forControlEvents:UIControlEventTouchUpInside];
     [bar addSubview:reload];
 
-    self.hintLabel = [[UILabel alloc] initWithFrame:CGRectMake(188, 6, 126, 44)];
-    self.hintLabel.text = @"tap to talk";
-    self.hintLabel.font = [UIFont systemFontOfSize:11];
-    self.hintLabel.textColor = [UIColor colorWithWhite:0.55 alpha:1.0];
+    self.hintLabel = [[UILabel alloc] initWithFrame:CGRectMake(148, 6, 116, 44)];
+    self.hintLabel.text = @"Tap Talk to speak";
+    self.hintLabel.font = [UIFont fontWithName:@"Menlo-Regular" size:10] ?: [UIFont systemFontOfSize:10];
+    self.hintLabel.textColor = [UIColor colorWithRed:0.725 green:0.745 blue:0.949 alpha:1.0];
+    self.hintLabel.numberOfLines = 2;
     [bar addSubview:self.hintLabel];
 
     self.speaker = [[AVSpeechSynthesizer alloc] init];
@@ -149,22 +152,24 @@
         self.recorder = nil;
         return;
     }
-    self.micButton.backgroundColor = [UIColor colorWithRed:1.0 green:0.30 blue:0.38 alpha:1.0];
-    [self.micButton setTitle:@"\u25A0" forState:UIControlStateNormal];
-    self.hintLabel.text = @"listening... tap to stop";
+    self.micButton.backgroundColor = [UIColor colorWithRed:0.953 green:0.929 blue:0.878 alpha:1.0];
+    [self.micButton setTitleColor:[UIColor colorWithRed:0.063 green:0.086 blue:0.353 alpha:1.0] forState:UIControlStateNormal];
+    [self.micButton setTitle:@"Stop" forState:UIControlStateNormal];
+    self.hintLabel.text = @"Listening. Tap Stop when done.";
 }
 
 - (void)stopRecording {
     [self.recorder stop];
     self.recorder = nil;
-    self.micButton.backgroundColor = [UIColor colorWithRed:0.22 green:0.82 blue:1.0 alpha:1.0];
-    [self.micButton setTitle:@"\U0001F3A4" forState:UIControlStateNormal];
-    self.hintLabel.text = @"thinking...";
+    self.micButton.backgroundColor = [UIColor colorWithRed:1.0 green:0.353 blue:0.212 alpha:1.0];
+    [self.micButton setTitleColor:[UIColor colorWithRed:0.063 green:0.086 blue:0.353 alpha:1.0] forState:UIControlStateNormal];
+    [self.micButton setTitle:@"Talk" forState:UIControlStateNormal];
+    self.hintLabel.text = @"Thinking";
 
     NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"jarvis.wav"];
     NSData *data = [NSData dataWithContentsOfFile:path];
     if (data.length == 0) {
-        self.hintLabel.text = @"tap to talk";
+        self.hintLabel.text = @"Tap Talk to speak";
         return;
     }
     NSString *encoded = [data base64EncodedStringWithOptions:0];
@@ -193,7 +198,7 @@
                 [self injectMessage:@"jarvis" text:reply];
                 [self speak:reply];
             }
-            self.hintLabel.text = @"tap to talk";
+            self.hintLabel.text = @"Tap Talk to speak";
         });
     }] resume];
 }
@@ -236,7 +241,7 @@
         return;
     }
     NSString *encodedToken = [self.token stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    NSString *urlString = [NSString stringWithFormat:@"%@/api/reminders?mark=1&token=%@", self.baseURL, encodedToken];
+    NSString *urlString = [NSString stringWithFormat:@"%@/api/reminders?mark=0&token=%@", self.baseURL, encodedToken];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     [request setValue:self.token forHTTPHeaderField:@"X-Jarvis-Token"];
     request.timeoutInterval = 15;
@@ -249,21 +254,26 @@
             if ([items isKindOfClass:[NSArray class]]) {
                 NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
                 NSMutableArray *dueSoon = [NSMutableArray array];
+                UIApplication *app = [UIApplication sharedApplication];
                 for (NSDictionary *item in items) {
                     if (![item isKindOfClass:[NSDictionary class]]) { continue; }
                     NSTimeInterval due = [item[@"due"] doubleValue];
                     NSString *text = item[@"text"];
-                    if (due < now - 120 || text.length == 0) { continue; }
+                    if (due < now - 900 || text.length == 0) { continue; }
                     if (due <= now + 60) {
                         [dueSoon addObject:[NSString stringWithFormat:@"Reminder: %@", text]];
                     }
                     if (due > now + 5) {
+                        NSNumber *rid = item[@"id"] ?: @0;
+                        for (UILocalNotification *old in [app.scheduledLocalNotifications copy]) {
+                            if ([old.userInfo[@"reminder_id"] isEqual:rid]) { [app cancelLocalNotification:old]; }
+                        }
                         UILocalNotification *note = [[UILocalNotification alloc] init];
                         note.fireDate = [NSDate dateWithTimeIntervalSince1970:due];
                         note.alertBody = text;
                         note.soundName = UILocalNotificationDefaultSoundName;
-                        note.userInfo = @{@"jarvis": @YES};
-                        [[UIApplication sharedApplication] scheduleLocalNotification:note];
+                        note.userInfo = @{@"jarvis": @YES, @"reminder_id": rid};
+                        [app scheduleLocalNotification:note];
                         gotNew = YES;
                     }
                 }
