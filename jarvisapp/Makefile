@@ -8,8 +8,10 @@ APPLICATION_NAME = Jarvis
 
 Jarvis_FILES = main.m AppDelegate.m RootViewController.m
 Jarvis_FRAMEWORKS = UIKit Foundation CoreGraphics
-Jarvis_CFLAGS = -fobjc-arc -Wno-error=deprecated-module-dot-map -Wno-error=implicit-function-declaration
+Jarvis_CFLAGS = -fobjc-arc -Wno-error=deprecated-module-dot-map
+Jarvis_USE_MODULES = 0
 Jarvis_CODESIGN_FLAGS = -S
 
 include $(THEOS_MAKE_PATH)/application.mk
+
 
