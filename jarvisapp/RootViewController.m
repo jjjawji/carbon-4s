@@ -87,11 +87,15 @@
 }
 
 - (void)loadJarvis {
-    NSString *urlString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"JarvisURL"];
-    NSURL *url = [NSURL URLWithString:urlString ?: @""];
+    NSString *base = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"JarvisURL"];
+    NSString *urlString = [NSString stringWithFormat:@"%@&cb=%lld", base ?: @"", (long long)([[NSDate date] timeIntervalSince1970])];
+    NSURL *url = [NSURL URLWithString:urlString];
     if (!url) { return; }
     self.loading = YES;
-    [self.webView loadRequest:[NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url
+                                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                         timeoutInterval:20];
+    [self.webView loadRequest:request];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {

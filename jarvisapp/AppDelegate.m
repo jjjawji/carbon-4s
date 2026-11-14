@@ -4,6 +4,7 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
     CGRect frame = CGRectMake(0, 0, 320, 480);
     self.window = [[UIWindow alloc] initWithFrame:frame];
     RootViewController *root = [[RootViewController alloc] init];
