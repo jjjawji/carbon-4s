@@ -254,6 +254,8 @@
             if ([items isKindOfClass:[NSArray class]]) {
                 NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
                 NSMutableArray *dueSoon = [NSMutableArray array];
+                NSMutableDictionary *announced = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"jarvisAnnounced"] mutableCopy];
+                if (!announced) { announced = [NSMutableDictionary dictionary]; }
                 UIApplication *app = [UIApplication sharedApplication];
                 for (NSDictionary *item in items) {
                     if (![item isKindOfClass:[NSDictionary class]]) { continue; }
@@ -261,7 +263,11 @@
                     NSString *text = item[@"text"];
                     if (due < now - 900 || text.length == 0) { continue; }
                     if (due <= now + 60) {
-                        [dueSoon addObject:[NSString stringWithFormat:@"Reminder: %@", text]];
+                        NSString *akey = [NSString stringWithFormat:@"%@", item[@"id"] ?: text];
+                        if (!announced[akey]) {
+                            [dueSoon addObject:[NSString stringWithFormat:@"Reminder: %@", text]];
+                            announced[akey] = @(now);
+                        }
                     }
                     if (due > now + 5) {
                         NSNumber *rid = item[@"id"] ?: @0;
@@ -277,6 +283,10 @@
                         gotNew = YES;
                     }
                 }
+                for (NSString *k in [announced allKeys]) {
+                    if (now - [announced[k] doubleValue] > 7 * 86400) { [announced removeObjectForKey:k]; }
+                }
+                [[NSUserDefaults standardUserDefaults] setObject:announced forKey:@"jarvisAnnounced"];
                 if (dueSoon.count > 0) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         for (NSString *msg in dueSoon) {
