@@ -244,15 +244,14 @@
             NSArray *items = [json isKindOfClass:[NSDictionary class]] ? json[@"reminders"] : nil;
             if ([items isKindOfClass:[NSArray class]]) {
                 NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+                NSMutableArray *dueSoon = [NSMutableArray array];
                 for (NSDictionary *item in items) {
                     if (![item isKindOfClass:[NSDictionary class]]) { continue; }
                     NSTimeInterval due = [item[@"due"] doubleValue];
                     NSString *text = item[@"text"];
                     if (due < now + 5 || text.length == 0) { continue; }
                     if (due <= now + 60) {
-                        NSString *msg = [NSString stringWithFormat:@"Reminder: %@", text];
-                        [self injectMessage:@"jarvis" text:msg];
-                        [self speak:msg];
+                        [dueSoon addObject:[NSString stringWithFormat:@"Reminder: %@", text]];
                     }
                     UILocalNotification *note = [[UILocalNotification alloc] init];
                     note.fireDate = [NSDate dateWithTimeIntervalSince1970:due];
@@ -261,6 +260,14 @@
                     note.userInfo = @{@"jarvis": @YES};
                     [[UIApplication sharedApplication] scheduleLocalNotification:note];
                     gotNew = YES;
+                }
+                if (dueSoon.count > 0) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        for (NSString *msg in dueSoon) {
+                            [self injectMessage:@"jarvis" text:msg];
+                            [self speak:msg];
+                        }
+                    });
                 }
             }
         }
