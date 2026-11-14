@@ -47,6 +47,8 @@
         <key>NSAllowsArbitraryLoads</key>
         <true/>
     </dict>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Jarvis listens only when you tap the microphone.</string>
     <key>JarvisURL</key>
     <string>http://192.168.1.2:8090/?token=iwO92CtyDz6V4pyLx6XMMJW0-tUOCIHh&amp;app=1</string>
     <key>CFBundleIcons</key>

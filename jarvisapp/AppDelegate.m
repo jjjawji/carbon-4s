@@ -16,6 +16,7 @@
         [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:types categories:nil]];
     }
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    [application setIdleTimerDisabled:YES];
     return YES;
 }
 
