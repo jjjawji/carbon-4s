@@ -1,0 +1,40 @@
+name: Build Jarvis app
+
+on:
+  push:
+    paths:
+      - 'jarvisapp/**'
+      - '.github/workflows/build-jarvis.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Theos and iOS 9.3 SDK
+        run: |
+          brew install ldid xz
+          git clone --recursive https://github.com/theos/theos.git "$HOME/theos"
+          mkdir -p "$HOME/theos/sdks"
+          git clone --depth 1 --filter=blob:none --sparse https://github.com/theos/sdks.git /tmp/sdks
+          cd /tmp/sdks
+          git sparse-checkout set iPhoneOS9.3.sdk
+          ln -sfn /tmp/sdks/iPhoneOS9.3.sdk "$HOME/theos/sdks/iPhoneOS9.3.sdk"
+          echo "THEOS=$HOME/theos" >> $GITHUB_ENV
+          echo "$HOME/theos/bin" >> $GITHUB_PATH
+
+      - name: Build package
+        working-directory: jarvisapp
+        run: make package FINALPACKAGE=1
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: jarvis-app-${{ github.run_number }}
+          name: Jarvis app build ${{ github.run_number }}
+          files: jarvisapp/packages/*.deb

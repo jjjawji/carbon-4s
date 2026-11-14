@@ -1,0 +1,9 @@
+Package: com.jawji.jarvis
+Name: Jarvis
+Version: 1.0
+Architecture: iphoneos-arm
+Description: Jarvis - your personal AI, native client.
+Maintainer: Jawji
+Author: Jawji
+Section: Applications
+Depends: firmware (>= 9.0)
