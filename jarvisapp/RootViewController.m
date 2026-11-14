@@ -249,17 +249,19 @@
                     if (![item isKindOfClass:[NSDictionary class]]) { continue; }
                     NSTimeInterval due = [item[@"due"] doubleValue];
                     NSString *text = item[@"text"];
-                    if (due < now + 5 || text.length == 0) { continue; }
+                    if (due < now - 120 || text.length == 0) { continue; }
                     if (due <= now + 60) {
                         [dueSoon addObject:[NSString stringWithFormat:@"Reminder: %@", text]];
                     }
-                    UILocalNotification *note = [[UILocalNotification alloc] init];
-                    note.fireDate = [NSDate dateWithTimeIntervalSince1970:due];
-                    note.alertBody = text;
-                    note.soundName = UILocalNotificationDefaultSoundName;
-                    note.userInfo = @{@"jarvis": @YES};
-                    [[UIApplication sharedApplication] scheduleLocalNotification:note];
-                    gotNew = YES;
+                    if (due > now + 5) {
+                        UILocalNotification *note = [[UILocalNotification alloc] init];
+                        note.fireDate = [NSDate dateWithTimeIntervalSince1970:due];
+                        note.alertBody = text;
+                        note.soundName = UILocalNotificationDefaultSoundName;
+                        note.userInfo = @{@"jarvis": @YES};
+                        [[UIApplication sharedApplication] scheduleLocalNotification:note];
+                        gotNew = YES;
+                    }
                 }
                 if (dueSoon.count > 0) {
                     dispatch_async(dispatch_get_main_queue(), ^{
